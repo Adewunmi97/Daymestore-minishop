@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get "payments/paypal", to: 'payments#checkout'
+  get "payments/checkout", to: 'payments#paypal'
+  get  'payments/thank_you', to: 'payments#thank_you'
   resources :purchases
   resources :products
   devise_for :users
