@@ -2,9 +2,11 @@
 
 <%= render @product %>
 
+<%= link_to "Back to products", products_path, data: { turbo: false } %>
 <div>
+<% if @product.seller == current_user %>
   <%= link_to "Edit this product", edit_product_path(@product) %> |
-  <%= link_to "Back to products", products_path, data: { turbo: false } %>
-
   <%= button_to "Destroy this product", @product, method: :delete %>
+<% end %>
+
 </div>
