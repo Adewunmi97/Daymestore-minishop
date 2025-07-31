@@ -2,8 +2,13 @@ Rails.application.routes.draw do
   get "payments/paypal", to: 'payments#checkout'
   get "payments/checkout", to: 'payments#paypal'
   get  'payments/thank_you', to: 'payments#thank_you'
+  # config/routes.rb
+get "products/success", to: "products#success", as: :success_products
+
   resources :purchases
-  resources :products
+  resources :products do 
+    post "buy", on: :member
+  end
   devise_for :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
