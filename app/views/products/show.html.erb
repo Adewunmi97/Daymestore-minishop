@@ -6,7 +6,7 @@
 <%= link_to "Back to products", products_path, data: { turbo: false } %>
 
 <% if user_signed_in? && current_user != @product.seller %>
-  <div id="paypal-button-container"></div>
+  <div id="paypal-button-container" data-price="<%= @product.price %>"></div>
 <% else %>
   <% if current_user == @product.seller %>
     <p><strong>Note:</strong> You can't purchase your own product.</p>
