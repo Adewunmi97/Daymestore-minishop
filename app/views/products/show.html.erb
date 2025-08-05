@@ -1,24 +1,7 @@
-<h2><%= @product.title %></h2>
-<p><strong>Description:</strong> <%= @product.description %></p>
-<p><strong>Price:</strong> $<%= @product.price %></p>
-<p><strong>Seller:</strong> <%= @product.seller.email %></p>
-
-<%= link_to "Back to products", products_path, data: { turbo: false } %>
-
-<% if user_signed_in? && current_user != @product.seller %>
-  <div id="paypal-button-container" data-price="<%= @product.price %>"></div>
-<% else %>
-  <% if current_user == @product.seller %>
-    <p><strong>Note:</strong> You can't purchase your own product.</p>
-  <% else %>
-    <p>Please <%= link_to "sign in", new_user_session_path %> to purchase.</p>
-  <% end %>
-<% end %>
-
 <div>
-<% if @product.seller == current_user %>
-  <%= link_to "Edit this product", edit_product_path(@product) %> |
-  <%= button_to "Destroy this product", @product, method: :delete %>
-<% end %>
+  <% if @product.seller == current_user %>
+    <%= link_to "Edit this product", edit_product_path(@product), class: "underline" %>
+  <% end %>
 </div>
 
+<%= render @product %>

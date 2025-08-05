@@ -23,18 +23,34 @@
     <script src="https://www.paypal.com/sdk/js?client-id=<%= ENV['PAYPAL_CLIENT_ID'] %>&currency=USD"></script>
   </head>
 
-  <body>
-  <% if user_signed_in? %>
-    <%= current_user.email %>
-    <%= link_to "Sign out", destroy_user_session_path, data: { turbo_method: :delete } %>
-    <% else %>
-    <%= link_to "Sign up", new_user_registration_path %>
-    <%= link_to "Sign in", new_user_session_path %>
-    <% end %>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    <%= yield %>
+  <body class="mx-auto px-10 max-w-7xl">
+    <header class="border-b border-lighter sticky top-0 z-20 bg-white">
+      <div class="flex items-center justify-between mx-auto max-w-6xl pb-2 pt-4 md:pt-6">
+        <a class=" cursor-pointer" href="/">
+          <h1 class="flex no-underline">
+            <span class="text-xl font-primary font-bold tracking-tight pt-1">Minishop</span>
+          </h1>
+        </a>
+        <div>
+          <% if user_signed_in? %>
+            <%= current_user.email %>
+            <%= link_to "Sign out", destroy_user_session_path, data: { turbo_method: :delete } %>
+          <% else %>
+            <%= link_to "Sign up", new_user_registration_path %>
+            <%= link_to "Sign in", new_user_session_path %>
+          <% end %>
+        </div>
+      </div>
+    </header>
 
-    <%= yield :paypal %>
+    <main>
+      <div class="mx-auto max-w-6xl py-12 mx-auto">
+        <div class="">
+          <p class="notice"><%= notice %></p>
+          <p class="alert"><%= alert %></p>
+        </div>
+        <%= yield %>
+      </div>
+    </main>
   </body>
 </html>

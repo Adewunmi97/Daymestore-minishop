@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+@theme {
+  --color-lighter: #F5F3FF;
+  --color-light: #DDD6FE;
+  --color-primary: #5B21B6;
+  --color-dark: #4C1D95;
+  --font-body: sans, Inter-var;
+}
+
+.button {
+  @apply p-2 bg-black text-white cursor-pointer;
+}
+
+
