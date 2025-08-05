@@ -2,3 +2,6 @@
 import "@hotwired/turbo-rails"
 import "controllers"
 import "paypal_button"
+
+import "trix"
+import "@rails/actiontext"
