@@ -1,7 +1,21 @@
+<%= turbo_frame_tag @product do %>
 <div>
   <% if @product.seller == current_user %>
     <%= link_to "Edit this product", edit_product_path(@product), class: "underline" %>
   <% end %>
 </div>
-
+<%= turbo_stream.update "flash", partial: "shared/flash" %>
 <%= render @product %>
+<% end %>
+
+<div id="reviews-container" class="my-6 py-20">
+  <h2 class="text-3xl font-bold">Reviews</h2>
+  <% if user_signed_in? %>
+    <p class="my-4 text-xl">Write a review</p>
+    <%= render partial: "reviews/form", locals: { review: @new_review } %>
+  <% end %>
+  <%= turbo_stream_from @product %>
+  <%= turbo_frame_tag "reviews" do %>
+    <%= render @reviews %>
+  <% end %>
+</div>

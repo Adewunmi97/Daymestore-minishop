@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :reviews
   get "payments/paypal", to: 'payments#checkout'
   get "payments/checkout", to: 'payments#paypal'
   get  'payments/thank_you', to: 'payments#thank_you'

@@ -20,6 +20,8 @@
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <meta name="turbo-refresh-method" content="morph">
+    <meta name="turbo-refresh-scroll" content="preserve">
     <script src="https://www.paypal.com/sdk/js?client-id=<%= ENV['PAYPAL_CLIENT_ID'] %>&currency=USD"></script>
   </head>
 
@@ -45,9 +47,7 @@
 
     <main>
       <div class="mx-auto max-w-6xl py-12 mx-auto">
-        <div class="">
-          <p class="notice"><%= notice %></p>
-          <p class="alert"><%= alert %></p>
+        <%= render "shared/flash"%>
         </div>
         <%= yield %>
       </div>

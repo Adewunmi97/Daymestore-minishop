@@ -10,6 +10,8 @@ class ProductsController < ApplicationController
 
   # GET /products/1 or /products/1.json
   def show
+    @reviews = @product.reviews.order("created_at DESC")
+    @new_review = @product.reviews.new(user_id: current_user&.id)
   end
 
   def buy
