@@ -27,6 +27,18 @@
         <h1 class="leading-relaxed font-extrabold text-3xl text-primary py-2 sm:py-4">
           <%= product.title %>
         </h1>
+
+    <div class="group block flex-shrink-0">
+      <div class="flex items-center text-sm font-medium text-gray-700 group-hover:text-gray-900">
+        <div>
+          <%= render partial: "shared/user_photo", locals: { user: product.seller } %>
+        </div>
+        <div class="ml-3 mt-3">
+          <%= product.seller.name %>
+        </div>
+      </div>
+    </div>
+
         <div class="text-xl text-primary font-medium py-4 px-1">
           $<span class="text-2xl"><%= product.price %>
           </span>

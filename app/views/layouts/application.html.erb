@@ -35,8 +35,13 @@
         </a>
         <div>
           <% if user_signed_in? %>
-            <%= current_user.email %>
-            <%= link_to "Sign out", destroy_user_session_path, data: { turbo_method: :delete } %>
+            <div class="group block flex-shrink-0">
+              <div class="flex items-center text-sm font-medium text-gray-700 group-hover:text-gray-900">
+                <div>
+                  <%= render partial: "shared/user_photo", locals: { user: current_user } %>
+                </div>
+              </div>
+            </div>
           <% else %>
             <%= link_to "Sign up", new_user_registration_path %>
             <%= link_to "Sign in", new_user_session_path %>
