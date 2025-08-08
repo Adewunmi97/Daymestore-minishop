@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :orders
+  resources :cart_items
+  resources :carts
   resources :reviews
   get "payments/paypal", to: 'payments#checkout'
   get "payments/checkout", to: 'payments#paypal'
