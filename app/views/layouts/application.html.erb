@@ -46,6 +46,9 @@
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20" stroke-width="1.5" stroke="currentColor" class="w-6 svg-inline--fa fa-shopping-cart fa-w-18 text-primary m-auto">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 2.25h1.386c.51 0 .958.34 1.09.832l.383 1.436m0 0L6.75 14.25h10.5l2.25-7.5H6.75m-1.641-4.732L6.75 14.25m0 0a2.25 2.25 0 100 4.5 2.25 2.25 0 000-4.5zm10.5 0a2.25 2.25 0 100 4.5 2.25 2.25 0 000-4.5z" />
                     </svg>
+                    <%= turbo_frame_tag "cartsize" do %>
+                      <%= render "carts/cart_item_count" %>
+                    <% end %>
                   <% end %>
                 </div>
               </div>

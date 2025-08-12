@@ -13,7 +13,8 @@ class CartItemsController < ApplicationController
         render turbo_stream: [
           turbo_stream.replace("add_to_cart_button", 
           partial: "shared/add_to_cart_button", 
-          locals: { product: @product })
+          locals: { product: @product }),
+          turbo_stream.update("cartsize", partial: "carts/cart_item_count")
         ]
       }
     end
