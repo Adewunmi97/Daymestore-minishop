@@ -8,6 +8,15 @@ class CartItemsController < ApplicationController
     @cart = Cart.find_or_create_by(user_id: current_user.id)
     @product = Product.find(params[:product_id])
     @cart.cart_items.create!(product:@product) if @cart.products.exclude?(@product)
+    respond to do |format|
+      format.turbo_stream {
+        render turbo_stream: [
+          turbo_stream.replace("add_to_cart_button", 
+          partial: "shared/add_to_cart_button", 
+          locals: { product = @product })
+        ]
+      }
+    end
   end
 
   # DELETE /cart_items/1 or /cart_items/1.json

@@ -1,6 +1,56 @@
-<div id="<%= dom_id cart %>" class="w-full sm:w-auto my-5 space-y-5">
-  <div>
-    <strong class="block font-medium mb-1">User:</strong>
-    <%= cart.user_id %>
+<div class="container mx-auto mb-20 min-h-screen">
+  <h1 class="leading_relaxed font-primary font-extrabld text-4xl text-center text-primary mt-4 py-2 sm:py-4">Your Cart</h1>
+  <div class="min-h-80 max-w-2xl my-4 sm:my-8 mx-auto w-full">
+    <table class="mx-auto">
+      <thead>
+        <tr class="uppercase text-xs sm:text-sm text-primary border-b border-light">
+          <th class="font-primary font-normal px-6 py-4">Product</th>
+          <th class="font-primary font-normal px-6 py-4 hidden sm:table-cell">Price</th>
+          <th class="font-primary font-normal px-6 py-4">Remove</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-lighter">
+      <% @cart.cart_items.each do |cart_item| %>
+        <tr class="text-sm sm:text-base text-gray-600 text-center">
+          <td class="font-primary font-medium px-4 sm:px-6 py-4 flex items-center">
+            <%= link_to cart_item.product.title, cart_item.product, class:"pt-1 hover:text-dark" %>
+          </td>
+          <td class="font-primary font-medium px-4 sm:px-6 py-4 text-base hidden sm:table-cell">
+            $<span class="text-lg"><%= cart_item.product.price %></span>
+          </td>
+          <td class="font-primary font-medium px-4 sm:px-6 py-4">
+            <button aria-label="delete-item" class="">
+              <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="times" class="svg-inline--fa fa-times fa-w-11 w-8 h-8 text-primary border border-primary p-1 hover:bg-lighter" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512">
+              <path fill="currentColor" d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.19 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.19 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path>
+              </svg>
+            </button>
+          </td>
+        </tr>
+        <% end %>
+
+        <tr class="text-center">
+          <td class="font-primary text-base text-gray-600 font-semibold uppercase px-4 sm:px-6 py-4">Total</td>
+          <td class="font-primary text-lg text-primary font-medium px-4 sm:px-6 py-4">
+            $<span class="text-xl"><%= @cart.total_amount %></span>
+          </td>
+          <td></td>
+        </tr>
+     </tbody>
+    </table>
   </div>
+
+<div class="max-w-sm mx-auto space-y-4 px-2">
+  <a href="#" aria-label="checkout-products" class="bg-primary text-white text-lg font-primary font-semibold pt-2 pb-1 leading-relaxed flex justify-center items-center focus:ring-1 focus:ring-light focus:outline-none w-full hover:bg-dark rounded-sm">
+    Check Out
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="arrow-right" class="svg-inline--fa fa-arrow-right fa-w-14 w-4 h-4 ml-2 inline-flex" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+      <path fill="currentColor" d="M438.6 278.6l-160 160c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9L370.8 288H24c-13.3 0-24-10.7-24-24V248c0-13.3 10.7-24 24-24h346.8L244.7 107.3c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l160 160c9.5 9.5 9.5 24.6 0 34.2z"></path>
+    </svg>
+  </a>
+
+  <a aria-label="continue-shopping" class="border border-primary text-primary text-lg font-primary font-semibold pt-2 pb-1 leading-relaxed flex justify-center items-center focus:ring-1 focus:ring-light focus:outline-none w-full hover:bg-light rounded-sm" href="#">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="arrow-left" class="svg-inline--fa fa-arrow-left fa-w-14 w-4 mr-2 inline-flex" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+      <path fill="currentColor" d="M257.5 445.1c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0L9.4 264.9c-9.4-9.4-9.4-24.6 0-33.9L223.6 32.9c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9L93.3 224H424c13.3 0 24 10.7 24 24s-10.7 24-24 24H93.3l164.2 173.1z"></path>
+    </svg>
+    Continue shopping
+  </a>
 </div>

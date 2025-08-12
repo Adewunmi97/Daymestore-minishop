@@ -50,7 +50,7 @@
         <p>You already own this product!</p>
       <% else %>
         <div class="w-full">
-            <%= button_to "Add to cart", cart_items_path(product_id: product.id), class:"pt-3 pb-2 bg-primary text-white w-full mt-2 rounded-sm font-primary font-semibold text-xl flex justify-center items-baseline  hover:bg-dark cursor-pointer", "aria-label": "cart-button" %>
+          <%= render partial: "shared/add_to_cart_button", locals: { product: product } %>
         </div>
       <% end %>
     </div>
