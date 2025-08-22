@@ -3,11 +3,9 @@ Rails.application.routes.draw do
   resources :cart_items
   resource :cart, only: [:show]
   resources :reviews
-  get "payments/paypal", to: 'payments#checkout'
-  get "payments/checkout", to: 'payments#paypal'
-  get  'payments/thank_you', to: 'payments#thank_you'
-  # config/routes.rb
-get "products/success", to: "products#success", as: :success_products
+  post "payments/create_order", to: "payments#create_order"
+  post "payments/capture_order", to: "payments#capture_order"
+  get  "payments/thank_you", to: "payments#thank_you"
 
   resources :purchases
   resources :products do 

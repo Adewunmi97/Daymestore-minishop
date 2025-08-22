@@ -40,12 +40,15 @@
   </div>
 
 <div class="max-w-sm mx-auto space-y-4 px-2">
-  <a href="#" aria-label="checkout-products" class="bg-primary text-white text-lg font-primary font-semibold pt-2 pb-1 leading-relaxed flex justify-center items-center focus:ring-1 focus:ring-light focus:outline-none w-full hover:bg-dark rounded-sm">
-    Check Out
-    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="arrow-right" class="svg-inline--fa fa-arrow-right fa-w-14 w-4 h-4 ml-2 inline-flex" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-      <path fill="currentColor" d="M438.6 278.6l-160 160c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9L370.8 288H24c-13.3 0-24-10.7-24-24V248c0-13.3 10.7-24 24-24h346.8L244.7 107.3c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l160 160c9.5 9.5 9.5 24.6 0 34.2z"></path>
+  <button id="paypal-checkout-btn"
+          class="bg-primary text-white text-lg font-primary font-semibold pt-2 pb-1 leading-relaxed flex justify-center items-center focus:ring-1 focus:ring-light focus:outline-none w-full hover:bg-dark rounded-sm">
+    Pay with PayPal
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="arrow-right"
+         class="w-4 h-4 ml-2 inline-flex" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+      <path fill="currentColor"
+            d="M438.6 278.6l-160 160c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9L370.8 288H24c-13.3 0-24-10.7-24-24V248c0-13.3 10.7-24 24-24h346.8L244.7 107.3c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l160 160c9.5 9.5 9.5 24.6 0 34.2z"></path>
     </svg>
-  </a>
+  </button>
 
   <a aria-label="continue-shopping" class="border border-primary text-primary text-lg font-primary font-semibold pt-2 pb-1 leading-relaxed flex justify-center items-center focus:ring-1 focus:ring-light focus:outline-none w-full hover:bg-light rounded-sm" href="#">
     <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="arrow-left" class="svg-inline--fa fa-arrow-left fa-w-14 w-4 mr-2 inline-flex" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
@@ -54,3 +57,22 @@
     Continue shopping
   </a>
 </div>
+
+
+<script>
+document.getElementById("paypal-checkout-btn").addEventListener("click", function() {
+  fetch("<%= payments_create_order_path %>", {
+    method: "POST",
+    headers: {
+      "X-CSRF-Token": document.querySelector("meta[name='csrf-token']").content,
+      "Content-Type": "application/json"
+    }
+  })
+  .then(res => res.json())
+  .then(order => {
+    // Redirect to PayPal
+    const approveUrl = order.links.find(link => link.rel === "approve").href;
+    window.location.href = approveUrl;
+  });
+});
+</script>
