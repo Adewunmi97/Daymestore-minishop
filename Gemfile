@@ -72,3 +72,6 @@ gem "dockerfile-rails", ">= 1.7", group: :development
 gem "tailwindcss-rails", "~> 4.3"
 
 gem "mission_control-jobs", "~> 1.1"
+
+gem "sidekiq", "~> 8.0"
+gem 'redis'
