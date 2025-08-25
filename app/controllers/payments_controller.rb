@@ -67,25 +67,36 @@ class PaymentsController < ApplicationController
   end
 
   def capture_order
-    order_id = params[:order_id]
-    uri = URI("#{PAYPAL_API}/v2/checkout/orders/#{order_id}/capture")
-    req = Net::HTTP::Post.new(uri, headers)
+  order_id = params[:order_id]
+  uri = URI("#{PAYPAL_API}/v2/checkout/orders/#{order_id}/capture")
+  req = Net::HTTP::Post.new(uri, headers)
 
-    res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
-      http.request(req)
-    end
-
-    transaction = JSON.parse(res.body)
-
-    # Optional: persist order in DB
-    # current_user.orders.create!(
-    #   total_amount: current_user.cart.total_amount,
-    #   status: transaction["status"],
-    #   paypal_id: transaction["id"]
-    # )
-
-    render json: transaction
+  res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
+    http.request(req)
   end
+
+  transaction = JSON.parse(res.body)
+
+  if transaction["status"] == "COMPLETED"
+    # Persist order in DB
+    order = current_user.orders.create!(
+      total_amount: current_user.cart.total_amount,
+      status: transaction["status"],
+      paypal_id: transaction["id"]
+    )
+
+    # Send confirmation email
+    OrderMailer.confirmation_email(order).deliver_now
+
+    # Optionally clear the cart after successful payment
+    current_user.cart.cart_items.destroy_all
+
+      render json: { message: "Payment successful", transaction: transaction }
+    else
+      render json: { error: "Payment not approved", details: transaction }, status: :unprocessable_entity
+    end
+  end
+
 
   def thank_you; end
 

@@ -4,7 +4,7 @@ class Order < ApplicationRecord
   has_many :purchases
   has_many :products, through: :purchases
 
-  enun status: {
+  enum status: {
     pending: 0,
     processing: 1,
     fulfilled: 2,

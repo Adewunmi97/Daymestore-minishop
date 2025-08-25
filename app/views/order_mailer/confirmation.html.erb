@@ -1,0 +1,9 @@
+<h1>Order confirmation <%= @order.id %></h1>
+<p>Thank yo for your order</p>
+<h2>Order Details: </h2>
+  <% @order.purchases.product.each do |purchase| %>
+    <div>
+      <%= purchase.product.title %> - $<%= purchase.product.price %>
+    </div>
+  <% end %>
+<p>Total: $<%= @order.total_amount %></p>
