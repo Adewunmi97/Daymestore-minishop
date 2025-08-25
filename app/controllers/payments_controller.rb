@@ -86,7 +86,7 @@ class PaymentsController < ApplicationController
     )
 
     # Send confirmation email
-    OrderMailer.confirmation_email(order).deliver_now
+    OrderMailer.with(order_id: order_id).confirmation.deliver_later
 
     # Optionally clear the cart after successful payment
     current_user.cart.cart_items.destroy_all
