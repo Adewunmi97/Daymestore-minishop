@@ -1,5 +1,4 @@
 class CartsController < ApplicationController
-  before_action :set_cart, only: %i[ show ]
   before_action :authenticate_user!
   before_action :set_cart
 
@@ -12,6 +11,7 @@ class CartsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_cart
       @cart = current_user.cart
+      redirect_to :root unless @cart
     end
 
     # Only allow a list of trusted parameters through.
