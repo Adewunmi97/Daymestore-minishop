@@ -8,7 +8,7 @@ class User < ApplicationRecord
 
   #seller
   has_many :products, foreign_key: :seller_id, dependent: :destroy
-  
+  has_many :subscriptions, dependent: :destroy
   #buyer
   has_many :purchases, foreign_key: :buyer_id, dependent: :destroy
   has_many :reviews, dependent: :destroy

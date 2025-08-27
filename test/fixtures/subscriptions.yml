@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  paypal_subscription_id: MyString
+  plan_id: MyString
+  status: MyString
+  start_time: 2025-08-27 13:00:12
+
+two:
+  user: two
+  paypal_subscription_id: MyString
+  plan_id: MyString
+  status: MyString
+  start_time: 2025-08-27 13:00:12

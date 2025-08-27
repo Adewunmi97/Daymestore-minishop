@@ -12,6 +12,19 @@ Rails.application.routes.draw do
   resources :products do 
     post "buy", on: :member
   end
+
+  resources :subscriptions, only: [:new, :create] do
+  collection do
+    get :success      # /subscriptions/success
+    get :cancel       # /subscriptions/cancel
+    post :webhook     # /subscriptions/webhook
+  end
+
+  member do
+    post :cancel_paypal  # /subscriptions/:id/cancel_paypal
+  end
+end
+
   devise_for :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
