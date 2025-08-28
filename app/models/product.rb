@@ -9,4 +9,7 @@ class Product < ApplicationRecord
 
   has_many_attached :images
   has_rich_text :description
+
+  validates :title, presence: true
+  validates :price, presence: true, numericality: { greater_than: 0 }
 end
