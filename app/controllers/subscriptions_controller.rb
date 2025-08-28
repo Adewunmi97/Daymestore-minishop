@@ -106,7 +106,6 @@ end
     event = JSON.parse(raw) rescue nil
     Rails.logger.info "[PayPal Webhook] event_type=#{event&.dig('event_type')}, resource_id=#{event&.dig('resource','id')}"
 
-    # In production you should verify signature (see helper below)
     # verify_webhook_signature(raw) -> returns true/false
 
     if event

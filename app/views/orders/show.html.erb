@@ -1,15 +1,37 @@
-<% content_for :title, "Showing order" %>
+<h1 class="text-2xl font-bold mb-4">Order #<%= @order.id %></h1>
 
-<div class="md:w-2/3 w-full">
-  <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-block" id="notice"><%= notice %></p>
-  <% end %>
+<div class="space-y-4">
+  <div>
+    <strong>Status:</strong>
+    <span class="px-2 py-1 rounded-full text-white <%= @order.fulfilled? ? 'bg-green-500' : @order.pending? ? 'bg-yellow-500' : 'bg-gray-500' %>">
+      <%= @order.status.capitalize %>
+    </span>
+  </div>
 
-  <h1 class="font-bold text-4xl">Showing order</h1>
+  <div><strong>Total Amount:</strong> $<%= number_with_precision(@order.total_amount, precision: 2) %></div>
+  <div><strong>Payment Method:</strong> <%= @order.payment_method %></div>
+  <div><strong>Payment ID:</strong> <%= @order.payment_id %></div>
+  <div><strong>Paid At:</strong> <%= @order.paid_at ? @order.paid_at.strftime("%b %d, %Y %H:%M") : "Not recorded" %></div>
+  <div><strong>Status Changed At:</strong> <%= @order.status_changed_at&.strftime("%b %d, %Y %H:%M") || "N/A" %></div>
+</div>
 
-  <%= render @order %>
+<hr class="my-6">
 
-  <%= link_to "Edit this order", edit_order_path(@order), class: "w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-  <%= link_to "Back to orders", orders_path, class: "w-full sm:w-auto text-center mt-2 sm:mt-0 sm:ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-  <%= button_to "Destroy this order", @order, method: :delete, form_class: "sm:inline-block mt-2 sm:mt-0 sm:ml-2", class: "w-full rounded-md px-3.5 py-2.5 text-white bg-red-600 hover:bg-red-500 font-medium cursor-pointer", data: { turbo_confirm: "Are you sure?" } %>
+<h2 class="text-xl font-semibold mb-3">Products</h2>
+
+<% if @order.products.any? %>
+  <ul class="space-y-2">
+    <% @order.products.each do |product| %>
+      <li class="border rounded p-3 flex justify-between">
+        <span><%= product.title %></span>
+        <span>$<%= number_with_precision(product.price, precision: 2) %></span>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No products associated with this order.</p>
+<% end %>
+
+<div class="mt-6">
+  <%= link_to "Back to Orders", orders_path, class: "text-blue-600 hover:underline" %>
 </div>

@@ -1,29 +1,32 @@
-<% content_for :title, "Orders" %>
+<h1 class="text-2xl font-bold mb-4">My Orders</h1>
 
-<div class="w-full">
-  <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-block" id="notice"><%= notice %></p>
-  <% end %>
-
-  <div class="flex justify-between items-center">
-    <h1 class="font-bold text-4xl">Orders</h1>
-    <%= link_to "New order", new_order_path, class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white block font-medium" %>
-  </div>
-
-  <div id="orders" class="min-w-full divide-y divide-gray-200 space-y-5">
-    <% if @orders.any? %>
-      <% @orders.each do |order| %>
-        <div class="flex flex-col sm:flex-row justify-between items-center pb-5 sm:pb-0">
-          <%= render order %>
-          <div class="w-full sm:w-auto flex flex-col sm:flex-row space-x-2 space-y-2">
-            <%= link_to "Show", order, class: "w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-            <%= link_to "Edit", edit_order_path(order), class: "w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-            <%= button_to "Destroy", order, method: :delete, class: "w-full sm:w-auto rounded-md px-3.5 py-2.5 text-white bg-red-600 hover:bg-red-500 font-medium cursor-pointer", data: { turbo_confirm: "Are you sure?" } %>
-          </div>
-        </div>
-      <% end %>
-    <% else %>
-      <p class="text-center my-10">No orders found.</p>
+<table class="min-w-full divide-y divide-gray-200 border rounded-lg">
+  <thead>
+    <tr class="bg-gray-100 text-left">
+      <th class="px-4 py-2">Order </th>
+      <th class="px-4 py-2">Status</th>
+      <th class="px-4 py-2">Total</th>
+      <th class="px-4 py-2">Payment</th>
+      <th class="px-4 py-2">Created At</th>
+      <th class="px-4 py-2"></th>
+    </tr>
+  </thead>
+  <tbody class="divide-y divide-gray-200">
+    <% @orders.each do |order| %>
+      <tr>
+        <td class="px-4 py-2"><%= order.id %></td>
+        <td class="px-4 py-2">
+          <span class="px-2 py-1 rounded-full text-white <%= order.fulfilled? ? 'bg-green-500' : order.pending? ? 'bg-yellow-500' : 'bg-gray-500' %>">
+            <%= order.status.capitalize %>
+          </span>
+        </td>
+        <td class="px-4 py-2">$<%= number_with_precision(order.total_amount, precision: 2) %></td>
+        <td class="px-4 py-2"><%= order.payment_method %></td>
+        <td class="px-4 py-2"><%= order.created_at.strftime("%b %d, %Y %H:%M") %></td>
+        <td class="px-4 py-2">
+          <%= link_to "View", order_path(order), class: "text-blue-600 hover:underline" %>
+        </td>
+      </tr>
     <% end %>
-  </div>
-</div>
+  </tbody>
+</table>

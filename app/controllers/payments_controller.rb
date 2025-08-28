@@ -78,24 +78,33 @@ class PaymentsController < ApplicationController
   transaction = JSON.parse(res.body)
 
   if transaction["status"] == "COMPLETED"
-    # Persist order in DB
+    # Map PayPal status → Rails enum
+    mapped_status = case transaction["status"]
+                    when "COMPLETED" then :fulfilled
+                    when "PENDING"   then :pending
+                    when "CANCELLED" then :cancelled
+                    else :processing
+                    end
+
     order = current_user.orders.create!(
       total_amount: current_user.cart.total_amount,
-      status: transaction["status"],
-      paypal_id: transaction["id"]
+      status: mapped_status,
+      payment_id: transaction["id"],   # ✅ fix: use real column
+      payment_method: "paypal"
     )
 
     # Send confirmation email
     SendOrderConfirmationJob.perform_later(order.id)
 
-    # Optionally clear the cart after successful payment
+    # Clear the cart
     current_user.cart.cart_items.destroy_all
 
-      render json: { message: "Payment successful", transaction: transaction }
-    else
-      render json: { error: "Payment not approved", details: transaction }, status: :unprocessable_entity
-    end
+    # Redirect to scaffolded order page
+    redirect_to order_path(order), notice: "Payment successful! 🎉"
+  else
+    render json: { error: "Payment not approved", details: transaction }, status: :unprocessable_entity
   end
+end
 
 
   def thank_you; end
