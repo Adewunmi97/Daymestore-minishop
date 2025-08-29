@@ -2,10 +2,10 @@
 
 one:
   title: MyString
-  price: 9.99
+  price: 10.00
   seller: one
 
 two:
   title: MyString
-  price: 9.99
+  price: 19.00
   seller: two

@@ -7,7 +7,7 @@ class CartItemsController < ApplicationController
   def create
     @cart = Cart.find_or_create_by(user_id: current_user.id)
     @product = Product.find(params[:product_id])
-    @cart.cart_items.create!(product:@product) if @cart.products.exclude?(@product)
+    @cart.add(@product)
     respond_to do |format|
       format.turbo_stream {
         render turbo_stream: [
@@ -22,7 +22,7 @@ class CartItemsController < ApplicationController
 
   # DELETE /cart_items/1 or /cart_items/1.json
   def destroy
-    @cart_item.destroy!
+    @cart.remove(@cart_item.product)
 
     respond_to do |format|
       format.html { redirect_to cart_path, status: :see_other, notice: "Product removed from your cart." }
