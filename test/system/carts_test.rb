@@ -2,40 +2,45 @@ require "application_system_test_case"
 
 class CartsTest < ApplicationSystemTestCase
   setup do
-    @cart = carts(:one)
+    @buyer = users(:two)
+    @product = products(:one)
+    @product2 = products(:two)
+    sign_in @buyer
+    @buyer.cart.empty!
   end
 
-  test "visiting the index" do
-    visit carts_url
-    assert_selector "h1", text: "Carts"
+  test "adding new product to cart" do 
+    visit product_url(@product)
+    click_on "Add to cart"
+    assert_selector "turbo-frame#cartsize div", text: "1"
+    assert_selector "button#add_to_cart_button", text: "Added to cart"
   end
 
-  test "should create cart" do
-    visit carts_url
-    click_on "New cart"
+  test "removing product from the cart" do
+    visit product_url(@product)
+    click_on "Add to cart"
+    visit product_url(@product2)
+    click_on "Add to cart"
+    visit cart_url
 
-    fill_in "User", with: @cart.user_id
-    click_on "Create Cart"
-
-    assert_text "Cart was successfully created"
-    click_on "Back"
+    assert_text @product.title
+    first("button.remove-item").click
+    assert_no_text @product.title
+    assert_selector "turbo-frame#cartsize div", text: "1"
   end
 
-  test "should update Cart" do
-    visit cart_url(@cart)
-    click_on "Edit this cart", match: :first
+  test "displaying correct cart items and total amount on page" do
+    visit product_url(@product)
+    click_on "Add to cart"
+    visit product_url(@product2)
+    click_on "Add to cart"
+    visit cart_url
 
-    fill_in "User", with: @cart.user_id
-    click_on "Update Cart"
+    assert_text @product.title
+    assert_text "$#{@product.price}"
+    assert_text @product2.title
+    assert_text "$#{@product2.price}"
 
-    assert_text "Cart was successfully updated"
-    click_on "Back"
-  end
-
-  test "should destroy Cart" do
-    visit cart_url(@cart)
-    accept_confirm { click_on "Destroy this cart", match: :first }
-
-    assert_text "Cart was successfully destroyed"
+    assert_text "$#{@buyer.cart.total_amount}"
   end
 end

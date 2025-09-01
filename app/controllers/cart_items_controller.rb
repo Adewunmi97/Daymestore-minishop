@@ -22,6 +22,7 @@ class CartItemsController < ApplicationController
 
   # DELETE /cart_items/1 or /cart_items/1.json
   def destroy
+    @cart = Cart.find_or_create_by(user_id: current_user.id)
     @cart.remove(@cart_item.product)
 
     respond_to do |format|
@@ -33,11 +34,11 @@ class CartItemsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_cart_item
-      @cart_item = CartItem.find(params.expect(:id))
+      @cart_item = CartItem.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
     def cart_item_params
-      params.expect(cart_item: [ :cart_id, :product_id ])
+      params.require(:cart_item).permit(:cart_id, :product_id)
     end
 end

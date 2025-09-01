@@ -23,6 +23,6 @@ class Cart < ApplicationRecord
   end
 
   def is_empty?
-    cart_items.empty!
+    cart_items.empty?
   end
 end

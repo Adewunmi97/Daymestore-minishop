@@ -1,11 +1,11 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  title: MyString
+  title: Product one
   price: 10.00
   seller: one
 
 two:
-  title: MyString
+  title: Product two
   price: 19.00
-  seller: two
+  seller: one
