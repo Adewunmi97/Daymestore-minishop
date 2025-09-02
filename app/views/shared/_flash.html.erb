@@ -1,2 +1,7 @@
-<p class="notice"><%= notice %></p>
-<p class="alert"><%= alert %></p>
+<%= turbo_frame_tag "flash" do %>
+  <% flash.each do |type, message| %>
+    <% if message.present? %>
+      <p class="<%= type %>"><%= message %></p>
+    <% end %>
+  <% end %>
+<% end %>

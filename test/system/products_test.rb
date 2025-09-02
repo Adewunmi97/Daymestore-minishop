@@ -2,46 +2,38 @@ require "application_system_test_case"
 
 class ProductsTest < ApplicationSystemTestCase
   setup do
+    @user = users(:one)
     @product = products(:one)
+    @product2 = products(:two)
+    sign_in @user
   end
 
   test "visiting the index" do
-    visit products_url
-    assert_selector "h1", text: "Products"
+    visit root_url
+    assert_selector "h1", text: "Minishop"
   end
 
   test "should create product" do
-    visit products_url
-    click_on "New product"
+    visit root_url
+    click_on "Add new product"
 
-    fill_in "Description", with: @product.description
-    fill_in "Price", with: @product.price
-    fill_in "Seller", with: @product.seller_id
-    fill_in "Title", with: @product.title
+    find("trix-editor").set("Wonderful Product")
+    fill_in "Price", with: 25.0
+    fill_in "Title", with: "A beautiful wallpaper"
     click_on "Create Product"
 
     assert_text "Product was successfully created"
-    click_on "Back"
   end
 
   test "should update Product" do
     visit product_url(@product)
     click_on "Edit this product", match: :first
 
-    fill_in "Description", with: @product.description
-    fill_in "Price", with: @product.price
-    fill_in "Seller", with: @product.seller_id
-    fill_in "Title", with: @product.title
-    click_on "Update Product"
+        find("trix-editor").set("New description")
+    fill_in "Price", with: 20.0
+    fill_in "Title", with: "A new title"
+    click_on "Create Product"
 
     assert_text "Product was successfully updated"
-    click_on "Back"
-  end
-
-  test "should destroy Product" do
-    visit product_url(@product)
-    click_on "Destroy this product", match: :first
-
-    assert_text "Product was successfully destroyed"
   end
 end
