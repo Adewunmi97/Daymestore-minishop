@@ -5,7 +5,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_one_attached :profile_photo
-  has_secure_password
 
   #seller
   has_many :products, foreign_key: :seller_id, dependent: :destroy

@@ -1,0 +1,25 @@
+<!-- app/views/subscriptions/show.html.erb -->
+<div class="mx-auto md:w-2/3 w-full">
+  <h1 class="font-bold text-3xl mb-4">Your Subscription</h1>
+
+  <div class="rounded-lg border p-4 space-y-2">
+    <p><strong>Status:</strong> <%= @subscription.status %></p>
+    <p><strong>Plan:</strong> <%= @subscription.plan_id %></p>
+    <p><strong>PayPal ID:</strong> <%= @subscription.paypal_subscription_id %></p>
+  </div>
+
+  <div class="mt-6 flex gap-3">
+    <% if @subscription.status == "ACTIVE" %>
+      <%= button_to "Cancel Subscription",
+                    cancel_paypal_subscription_path(@subscription),
+                    method: :post,
+                    class: "rounded-md bg-red-600 px-3.5 py-2.5 text-sm font-semibold text-white hover:bg-red-500" %>
+    <% else %>
+      <span class="inline-block rounded-md bg-gray-200 px-3.5 py-2.5 text-sm text-gray-700">
+        Subscription is <%= @subscription.status %>
+      </span>
+    <% end %>
+
+    <%= link_to "Back", new_subscription_path, class: "rounded-md border px-3.5 py-2.5 text-sm" %>
+  </div>
+</div>

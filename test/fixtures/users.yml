@@ -1,9 +1,9 @@
 one:
   name: MyString
   email: user1@example.com
-  password_digest: <%= BCrypt::Password.create("password") %>
+  encrypted_password: password
 
 two:
   name: MyString
   email: user2@example.com
-  password_digest: <%= BCrypt::Password.create("password") %>
+  encrypted_password: password

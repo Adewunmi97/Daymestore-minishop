@@ -1,9 +1,11 @@
 require 'sidekiq/web'
+
 Rails.application.routes.draw do
   resources :orders, only: [:index, :show]
   resources :cart_items
   resource :cart, only: [:show]
   resources :reviews
+
   post "payments/create_order", to: "payments#create_order"
   post "payments/capture_order", to: "payments#capture_order"
   get  "payments/thank_you", to: "payments#thank_you"
@@ -13,17 +15,17 @@ Rails.application.routes.draw do
     post "buy", on: :member
   end
 
-  resources :subscriptions, only: [:new, :create] do
-  collection do
-    get :success      
-    get :cancel       
-    post :webhook     
-  end
+  resources :subscriptions, only: [:new, :create, :show] do
+    collection do
+      get :success      
+      get :cancel       
+      post :webhook     
+    end
 
-  member do
-    post :cancel_paypal  # /subscriptions/:id/cancel_paypal
+    member do
+      post :cancel_paypal  # /subscriptions/:id/cancel_paypal
+    end
   end
-end
 
   devise_for :users
   get "up" => "rails/health#show", as: :rails_health_check
