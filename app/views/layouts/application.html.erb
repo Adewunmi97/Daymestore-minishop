@@ -26,45 +26,12 @@
   </head>
 
   <body class="mx-auto px-10 max-w-7xl">
-    <header class="border-b border-lighter sticky top-0 z-20 bg-white">
-      <div class="flex items-center justify-between mx-auto max-w-6xl pb-2 pt-4 md:pt-6">
-        <a class=" cursor-pointer" href="/">
-          <h1 class="flex no-underline">
-            <span class="text-xl font-primary font-bold tracking-tight pt-1">Minishop</span>
-          </h1>
-        </a>
-        <div>
-          <% if user_signed_in? %>
-            <div class="group block flex-shrink-0">
-              <div class="flex items-center text-sm font-medium text-gray-700 group-hover:text-gray-900 gap-3">
-                <div>
-                  <%= render partial: "shared/user_photo", locals: { user: current_user } %>
-                </div>
-
-                <div class="">
-                  <%= link_to cart_path, class:"relative" do %>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20" stroke-width="1.5" stroke="currentColor" class="w-6 svg-inline--fa fa-shopping-cart fa-w-18 text-primary m-auto">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 2.25h1.386c.51 0 .958.34 1.09.832l.383 1.436m0 0L6.75 14.25h10.5l2.25-7.5H6.75m-1.641-4.732L6.75 14.25m0 0a2.25 2.25 0 100 4.5 2.25 2.25 0 000-4.5zm10.5 0a2.25 2.25 0 100 4.5 2.25 2.25 0 000-4.5z" />
-                    </svg>
-                    <%= turbo_frame_tag "cartsize" do %>
-                      <%= render "carts/cart_item_count" %>
-                    <% end %>
-                  <% end %>
-                </div>
-              </div>
-            </div>
-          <% else %>
-            <%= link_to "Sign up", new_user_registration_path %>
-            <%= link_to "Sign in", new_user_session_path %>
-          <% end %>
-        </div>
-      </div>
-    </header>
-
+    <%= render "shared/header" %>
     <main>
       <div class="mx-auto max-w-6xl py-12 mx-auto">
-        <%= render "shared/flash"%>
-        </div>
+        <%= render "shared/flash" %>
+      </div>
+      <div>
         <%= yield %>
       </div>
     </main>
