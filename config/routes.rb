@@ -11,9 +11,11 @@ Rails.application.routes.draw do
   get  "payments/thank_you", to: "payments#thank_you"
 
   resources :purchases
-  resources :products do 
-    post "buy", on: :member
+  resources :products do
+  collection do
+    get :search_suggestions
   end
+end
 
   resources :subscriptions, only: [:new, :create, :show] do
     collection do

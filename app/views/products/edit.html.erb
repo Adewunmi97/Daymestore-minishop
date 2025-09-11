@@ -1,13 +1,10 @@
 <%= turbo_frame_tag @product do %>
 
-<h1>Editing product</h1>
-
 <%= render "form", product: @product %>
 
 <br>
 
 <div>
-  <%= link_to "Show this product", @product %> |
-  <%= link_to "Back to products", products_path %>
+  <%= link_to "Show this product", @product, class: "button" %>
 </div>
 <% end %>
