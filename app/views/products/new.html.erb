@@ -1,15 +1,15 @@
 <% content_for :title, "New product" %>
-<div class="mb-8 max-w-2xl mx-auto rounded-xl border border-purple-200 bg-purple-50 p-6 shadow-sm flex items-center justify-between">
+<div class="mb-8 max-w-2xl mx-auto rounded-xl border border-primary bg-stone-100 p-6 shadow-sm flex items-center justify-between">
   <div>
-    <h2 class="text-lg font-semibold text-purple-800">Upgrade to Pro Seller</h2>
-    <p class="text-sm text-purple-600 mt-1">Unlock premium features and boost your sales with a Pro Seller account.</p>
+    <h2 class="text-lg font-semibold text-primary">Upgrade to Pro Seller</h2>
+    <p class="text-sm text-stone-600 mt-1">Unlock premium features and boost your sales with a Pro Seller account.</p>
   </div>
   <%= link_to "Subscribe Now", new_subscription_path, 
-      class: "bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-lg font-medium shadow-md transition" %>
+      class: "bg-dark hover:bg-primary text-white px-6 py-2 rounded-lg font-medium shadow-md transition" %>
 </div>
 
 
-<h1 class="text-2xl font-bold text-gray-800 mb-6 text-center">Add a new product</h1>
+<h1 class="text-3xl font-bold text-primary mb-6 text-center">Add a new product</h1>
 
 <%= render "form", product: @product %>
 
