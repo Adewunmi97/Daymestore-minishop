@@ -28,7 +28,7 @@ puts "Creating sellers and products..."
   products = seller.products.create!(
     6.times.map do
       {
-        title: [Faker::Commerce.product_name, ["Template", "Wallpaper", "Kit"].sample].join(" "),
+        title: [Faker::Commerce.product_name, ["wears"].sample].join(" "),
         description: Faker::Lorem.paragraphs(number: 4).join("<br/><br/>"),
         price: Faker::Commerce.price
       }

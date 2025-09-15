@@ -1,34 +1,34 @@
-<div class="min-h-screen flex items-center justify-center bg-gray-100">
-  <div class="w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
-    <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">Sign In</h2>
+<div class="min-h-screen flex items-center justify-center">
+  <div class="w-full max-w-md bg-white rounded-2xl shadow-lg p-6">
+    <h2 class="text-3xl font-bold text-center text-primary mb-6">Sign In</h2>
 
     <%= form_with scope: :user, url: session_path(:user), class: "space-y-4" do |f| %>
       <div>
-        <%= f.label :email, class: "block text-sm font-medium text-gray-700" %>
-        <%= f.email_field :email, autofocus: true, class: "w-full px-4 py-2 mt-1 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none" %>
+        <%= f.label :email, class: "block text-sm font-medium text-primary" %>
+        <%= f.email_field :email, autofocus: true, class: "w-full px-4 py-2 mt-1 border rounded-lg focus:ring-2 focus:ring-primary focus:outline-none" %>
       </div>
 
       <div>
-        <%= f.label :password, class: "block text-sm font-medium text-gray-700" %>
-        <%= f.password_field :password, autocomplete: "current-password", class: "w-full px-4 py-2 mt-1 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none" %>
+        <%= f.label :password, class: "block text-sm font-medium text-primary" %>
+        <%= f.password_field :password, autocomplete: "current-password", class: "w-full px-4 py-2 mt-1 border rounded-lg focus:ring-2 focus:ring-primary focus:outline-none" %>
       </div>
 
       <div class="flex items-center justify-between">
-        <label class="flex items-center text-sm text-gray-600">
-          <%= f.check_box :remember_me, class: "mr-2 rounded border-gray-300 text-blue-600 focus:ring-blue-500" %>
+        <label class="flex items-center text-sm text-primary">
+          <%= f.check_box :remember_me, class: "mr-2 rounded border-gray-300 text-dark focus:ring-primary" %>
           Remember me
         </label>
-        <%= link_to "Forgot password?", new_password_path(:user), class: "text-sm text-blue-600 hover:underline" %>
+        <%= link_to "Forgot password?", new_password_path(:user), class: "text-sm text-dark hover:underline" %>
       </div>
 
       <div>
-        <%= f.submit "Sign In", class: "w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-200" %>
+        <%= f.submit "Sign In", class: "w-full bg-dark text-white py-2 px-4 rounded-lg hover:bg-primary transition duration-200" %>
       </div>
     <% end %>
 
-    <p class="text-sm text-center text-gray-600 mt-6">
+    <p class="text-sm text-center text-primary mt-6">
       Don’t have an account?
-      <%= link_to "Sign up", new_registration_path(:user), class: "text-blue-600 hover:underline" %>
+      <%= link_to "Sign up", new_registration_path(:user), class: "text-dark hover:underline" %>
     </p>
   </div>
 </div>
