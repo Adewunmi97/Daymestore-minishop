@@ -9,7 +9,13 @@ class Cart < ApplicationRecord
   end
 
   def add(product)
-    cart_items.find_or_create_by(product: product)
+    cart_item = cart_items.find_or_initialize_by(product: product)
+
+    if cart_item.new_record?
+      cart_item.save
+    end
+
+    cart_item
   end
 
   def remove(product)
