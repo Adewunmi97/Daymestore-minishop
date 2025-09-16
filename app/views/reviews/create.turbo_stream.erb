@@ -1,1 +1,3 @@
-<%= turbo_stream.prepend("reviews", @review) %>
+<%= turbo_stream.prepend "reviews", @review %>
+
+<%= turbo_stream.replace "review_form", partial: "reviews/form", locals: { review: Review.new(product: @review.product) } %>
