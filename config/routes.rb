@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :cart_items
   resource :cart, only: [:show]
   resources :reviews
+  resource :profile, only: [:show, :edit, :update], controller: "users"
 
   post "payments/create_order", to: "payments#create_order"
   post "payments/capture_order", to: "payments#capture_order"

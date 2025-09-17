@@ -1,0 +1,13 @@
+<%= turbo_stream.replace "navbar_user_photo" do %>
+  <%= render "shared/profile_dropdown" %>
+<% end %>
+
+<%= turbo_stream.replace "flash" do %>
+  <%= render "shared/flash", notice: "Profile updated successfully." %>
+<% end %>
+
+<%= turbo_stream.after "navbar_user_photo_desktop" do %>
+  <script>
+    document.querySelectorAll('[data-dropdown-target="menu"]').forEach(menu => menu.classList.add("hidden"));
+  </script>
+<% end %>

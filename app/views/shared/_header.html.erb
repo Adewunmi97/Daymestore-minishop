@@ -41,7 +41,7 @@
       <div class="hidden lg:flex items-center space-x-4">
         <% if user_signed_in? %>
           <!-- User Photo -->
-          <%= render partial: "shared/user_photo", locals: { user: current_user } %>
+          <%= render "shared/profile_dropdown" %>
 
           <!-- Cart with count -->
           <div class="relative">
@@ -79,8 +79,7 @@
     <div class="flex items-center justify-between space-x-4">
       <% if user_signed_in? %>
         <!-- User Photo -->
-        <%= render partial: "shared/user_photo", locals: { user: current_user } %>
-
+        <%= render "shared/profile_dropdown" %>
         <!-- Cart with count -->
         <div class="relative">
           <%= link_to cart_path, class:"relative" do %>
