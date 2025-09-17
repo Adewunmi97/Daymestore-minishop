@@ -1,4 +1,4 @@
-<nav class="sticky bg-white border-b border-gray-200 top-0 z-20" data-controller="toggle">
+<nav class="sticky bg-white border-b border-gray-200 top-0 z-40" data-controller="toggle">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex flex-col lg:flex-row lg:justify-between lg:items-center py-2 space-y-2 lg:space-y-0">
 
@@ -38,10 +38,12 @@
       </div>
 
       <!-- Desktop Actions -->
-      <div class="hidden lg:flex items-center space-x-4">
+      <div class="hidden lg:flex items-center space-x-4 mx-10">
         <% if user_signed_in? %>
           <!-- User Photo -->
-          <%= render "shared/profile_dropdown" %>
+          <%= turbo_frame_tag "navbar_user_photo_desktop" do %>
+            <%= render "shared/profile_dropdown" %>
+          <% end %>                   
 
           <!-- Cart with count -->
           <div class="relative">
@@ -54,18 +56,6 @@
               <% end %>
             <% end %>
           </div>
-
-          <!-- Add Product -->
-          <%= link_to new_product_path, class: "inline-flex items-center px-2 py-1 rounded-md bg-stone-600 text-white hover:bg-stone-700" do %>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-            </svg>
-          <% end %>
-
-          <!-- Sign out -->
-          <%= link_to "Sign out", destroy_user_session_path, 
-            data: { turbo_method: :delete }, 
-            class: "text-sm text-gray-600 hover:text-red-600" %>
         <% else %>
           <%= link_to "Sign up", new_user_registration_path, class: "text-sm text-primary hover:text-dark" %>
           <%= link_to "Sign in", new_user_session_path, class: "text-sm text-primary hover:text-dark" %>
@@ -76,10 +66,15 @@
 
   <!-- Toggle -->
   <div class="lg:hidden hidden px-2 pt-3 pb-4" data-toggle-target="menu">
-    <div class="flex items-center justify-between space-x-4">
+    <div class="flex items-center justify-end space-x-4">
       <% if user_signed_in? %>
         <!-- User Photo -->
-        <%= render "shared/profile_dropdown" %>
+        <div class="relative">
+  <%= turbo_frame_tag "navbar_user_photo_mobile" do %>
+    <%= render "shared/profile_dropdown" %>
+  <% end %>
+</div>
+        
         <!-- Cart with count -->
         <div class="relative">
           <%= link_to cart_path, class:"relative" do %>
@@ -92,17 +87,6 @@
           <% end %>
         </div>
 
-        <!-- Add Product -->
-        <%= link_to new_product_path, class: "inline-flex items-center px-2 py-1 rounded-md bg-stone-600 text-white hover:bg-stone-700" do %>
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-          </svg>
-        <% end %>
-
-        <!-- Sign out -->
-        <%= link_to "Sign out", destroy_user_session_path, 
-          data: { turbo_method: :delete }, 
-          class: "text-sm text-gray-600 hover:text-red-600" %>
       <% else %>
         <%= link_to "Sign up", new_user_registration_path, class: "text-sm text-primary hover:text-dark" %>
         <%= link_to "Sign in", new_user_session_path, class: "text-sm text-primary hover:text-dark" %>

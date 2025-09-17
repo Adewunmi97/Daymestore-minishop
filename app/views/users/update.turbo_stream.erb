@@ -1,4 +1,8 @@
-<%= turbo_stream.replace "navbar_user_photo" do %>
+<%= turbo_stream.replace "navbar_user_photo_desktop" do %>
+  <%= render "shared/profile_dropdown" %>
+<% end %>
+
+<%= turbo_stream.replace "navbar_user_photo_mobile" do %>
   <%= render "shared/profile_dropdown" %>
 <% end %>
 
@@ -8,6 +12,7 @@
 
 <%= turbo_stream.after "navbar_user_photo_desktop" do %>
   <script>
+    // close dropdown after updating
     document.querySelectorAll('[data-dropdown-target="menu"]').forEach(menu => menu.classList.add("hidden"));
   </script>
 <% end %>
